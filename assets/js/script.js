@@ -75,9 +75,9 @@ btnGastos.addEventListener("click", () => {
   let gastosValor = parseInt(document.querySelector("#valorInput").value);
 
   // Validamos que se hayan ingresado números o mayor a 0
-  if (isNaN(gastosValor) || gastosValor <= 0) {
-    // Si el valor de gasto no es un número o es menor o igual a 0, se muestra una alerta y se vacía el valor del input valor
-    alert("Debe ingresar un número mayor a 0");
+  if (isNaN(gastosValor) || gastosValor <= 0 || gastosNombre === "") {
+    // Si el valor de gasto no es un número o es menor o igual a 0 o no se ingresa un nombre, se muestra una alerta y se vacía el valor del input valor
+    alert("Debe ingresar el nombre y valor mayor a 0");
     document.querySelector("#valorInput").value = "";
   } else {
     // Si el valor de gasto es válido, se crea un objeto gastos con la función getGastosObj y se agrega al array de gastos
