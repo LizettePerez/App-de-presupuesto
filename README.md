@@ -8,5 +8,5 @@ Puedes acceder a nuestra aplicación de presupuesto en el siguiente enlace:
 ## [Git Hub](https://github.com/LizettePerez/App-de-presupuesto)
 ***
 
-![Muestra de la pagina]()
-
+![Muestra de la pagina](https://github.com/LizettePerez/App-de-presupuesto/blob/main/assets/img/Muestra.png)
+***
