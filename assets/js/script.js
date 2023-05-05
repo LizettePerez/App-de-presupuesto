@@ -16,11 +16,9 @@ const getId = () => {
 const getGastosObj = (nombre, valor) => {
   const newGasto = {
     id: getId(), // Obtenemos un ID único
-    numero: numero, // Asignamos un número en orden
     nombre: nombre,
     valor: parseInt(valor)
   }
-  numero++; // Aumentamos el contador de número
   return JSON.parse(JSON.stringify(newGasto)); // Clonamos el objeto para evitar referencias
 }
 
@@ -29,12 +27,11 @@ const templateAddGastos = (gastos) => {
   const tbody = document.querySelector(".containerTbody");
   tbody.innerHTML += `
   <tr id="elemento${gastos.id}">
-    <td>${gastos.numero}</td>
-    <td>${gastos.nombre}</td>
+    <td><i class="fa-solid fa-minus fa-rotate-90 fa-2xl" style="color: #93478f;"></i>${gastos.nombre}</td>
     <td>$${gastos.valor.toLocaleString("es-CL")}</td>
     <td>
-      <a href="#" onclick="deleteIcon(${gastos.id})" ><i class="fa-regular fa-circle-xmark" style="color: #000;" onmouseover="this.style.color='#d21414'"
-      onmouseout="this.style.color='#000'"></i></a>
+      <a href="#" onclick="deleteIcon(${gastos.id})" ><i class="fa-regular fa-circle-xmark fa-lg" style="color: #93478f;" onmouseover="this.style.color='#d21414'"
+      onmouseout="this.style.color='#93478f'"></i></a>
     </td>
   </tr>
   `;
@@ -45,26 +42,30 @@ let btnPresupuesto = document.querySelector("#agregarPresup");
 btnPresupuesto.addEventListener("click", () => {
   let presupValue = parseInt(document.querySelector("#presupInput").value);
 
-  presupuestoTotal = presupValue; // Asignamos el valor del presupuesto total
-  saldoTotal = presupuestoTotal - totalGastos; // Calculamos el saldo total
-
   // Establecemos el contenido del elemento en "$"
   document.querySelector(".presupValue").innerText = "$0";
 
   // Si el valor de gasto no es un número o es menor o igual a 0, se muestra una alerta y se vacía el valor del input valor
   if (isNaN(presupValue) || presupValue <= 0) {
-    alert("Debe ingresar un número mayor a 0");
+    // Mostrar mensaje para que ingrese un valor
+    document.querySelector(".alertaPresup").style.display = "block";
+    // Asignamos presupuesto igual a 0
+    presupuestoTotal = 0;
+    saldoTotal = presupuestoTotal - totalGastos; // Calculamos el saldo total
     document.querySelector(".presupValue").innerText = "$0";
     document.querySelector("#agregarPresup").innerText = "Añadir";
   } else {
+    presupuestoTotal = presupValue; // Asignamos el valor del presupuesto total
+    saldoTotal = presupuestoTotal - totalGastos; // Calculamos el saldo total
     // Si se ingresó un número, lo formateamos y lo mostramos en el elemento
     document.querySelector(".presupValue").innerText = `$${presupuestoTotal.toLocaleString("es-CL")}`;
-    document.querySelector(".saldoValue").innerText = `$${saldoTotal.toLocaleString("es-CL")}`;
     document.querySelector("#agregarPresup").innerText = "Cambiar";
+    document.querySelector(".alertaPresup").style.display = "none";
   }
+
+  document.querySelector(".saldoValue").innerText = `$${saldoTotal.toLocaleString("es-CL")}`;
   // Dejamos vacio el input y cambiamos texto botond
   document.querySelector("#presupInput").value = "";
-  
 })
 
 
@@ -77,10 +78,22 @@ btnGastos.addEventListener("click", () => {
   // Obtenemos el valor del input de valor de gasto y lo convertimos a entero con parseInt
   let gastosValor = parseInt(document.querySelector("#valorInput").value);
 
-  // Validamos que se hayan ingresado números o mayor a 0
-  if (isNaN(gastosValor) || gastosValor <= 0 || gastosNombre === "") {
+  // Validamos que se ingrese el nombre y valor, si no se llena ninguno muestra mensaje de alerta en ambos
+  if (gastosNombre === "" && (isNaN(gastosValor) || gastosValor <= 0)){
+    document.querySelector(".alertaNombre").style.display = "block";
+    document.querySelector(".alertaValor").style.display = "block"; 
+
+    // Validamos que se ingrese el nombre, si no se llena ninguno muestra mensaje de alerta en nombre y se esconde el de valor
+  } else if (gastosNombre === "") {
+    document.querySelector(".alertaNombre").style.display = "block";
+    document.querySelector(".alertaValor").style.display = "none";
+
+    // Validamos que se ingrese el valor, si no se llena ninguno muestra mensaje de alerta en valor y se esconde el de nombre
+  } else if (isNaN(gastosValor) || gastosValor <= 0) {
     // Si el valor de gasto no es un número o es menor o igual a 0 o no se ingresa un nombre, se muestra una alerta y se vacía el valor del input valor
-    alert("Debe ingresar el nombre y valor mayor a 0");
+    document.querySelector(".alertaValor").style.display = "block";
+    document.querySelector(".alertaNombre").style.display = "none"; 
+
   } else {
     // Si el valor de gasto es válido, se crea un objeto gastos con la función getGastosObj y se agrega al array de gastos
     let gastos = getGastosObj(gastosNombre, gastosValor);
@@ -100,6 +113,13 @@ btnGastos.addEventListener("click", () => {
     // Se vacían los valores de los inputs nombre y valor
     document.querySelector("#nombreInput").value = "";
     document.querySelector("#valorInput").value = "";
+
+    // Mostrar tabla con gastos
+    document.querySelector(".table").style.display = "block";
+
+    // Esconder mensajes de alerta
+    document.querySelector(".alertaValor").style.display = "none";
+    document.querySelector(".alertaNombre").style.display = "none";
 
     // Se agrega el gasto al template de lista de gastos en el HTML
     templateAddGastos(gastos);
@@ -123,19 +143,13 @@ const deleteIcon = (id) => {
     return true;
   });
 
-  // Se actualizan los números de las filas en la tabla
-  const tbody = document.querySelector(".containerTbody");
-  const filas = tbody.querySelectorAll("tr");
-  // Recorrer cada fila con un ciclo forEach y pasa el índice (index)
-  filas.forEach((fila, index) => {
-    // Obtener el primer elemento td de cada fila (el número de la fila)
-    const numero = fila.querySelector("td:first-child");
-    // Actualizar el contenido del número con el índice + 1 (ya que el índice empieza en 0)
-    numero.textContent = index + 1;
-  });
-
   // Se recalcula el total de gastos y el saldo disponible
   totalGastos = arrayGastos.reduce((total, valor) => total + valor.valor, 0)
+
+  if (arrayGastos.length === 0) {
+    document.querySelector(".table").style.display = "none";
+  }
+
   saldoTotal = presupuestoTotal - totalGastos;
 
   document.querySelector(".gastosValue").innerText = `$${totalGastos.toLocaleString("es-CL")}`;
