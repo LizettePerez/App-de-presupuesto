@@ -14,61 +14,67 @@
 </head>
 
 <body>
-  <div class="containerInput">
-    <div class="containerPresupuesto">
-      <div>
-        <h5>Ingrese su presupuesto</h5>
-        <input type="number" id="presupInput" />
+  <main>
+    <div class="containerInput">
+      <div class="containerPresupuesto">
+        <div>
+          <h5>Presupuesto</h5>
+          <input type="number" placeholder="Ingrese la cantidad" id="presupInput" />
+        </div>
+        <button type="button" id="agregarPresup">Añadir</button>
       </div>
-      <button type="button" id="agregarPresup">Añadir Presupuesto</button>
-    </div>
-    <div class="containerGastos">
-      <form id="containerForm">
-        <div class="formName">
-          <h5>Ingrese nombre del gasto</h5>
-          <div>
-            <input type="text" id="nombreInput">
+      <div class="containerGastos">
+        <form id="containerForm">
+          <div class="formName">
+            <h5>Gastos</h5>
+            <div>
+              <input type="text" placeholder="Ingrese nombre del producto" id="nombreInput">
+            </div>
           </div>
-        </div>
-        <div class="formValue">
-          <h5>Ingrese valor del gasto</h5>
-          <div>
-            <input type="number" id="valorInput">
+          <div class="formValue">
+            <div>
+              <input type="number" placeholder="Ingrese la valor del producto" id="valorInput">
+            </div>
+            <button type="button" id="agregarGasto">Añadir</button>
           </div>
-          <button type="button" id="agregarGasto">Añadir Gasto</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
-  <div class="containerValue">
+    <div class="containerValue">
+      <div>
+        <h5>PRESUPUESTO</h5>
+        <h6 class="presupValue">$0</h6>
+      </div>
+      <div>
+        <h5>GASTOS</h5>
+        <h6 class="gastosValue">$0</h6>
+      </div>
+      <div>
+        <h5>SALDO</h5>
+        <h6 class="saldoValue">$0</h6>
+      </div>
+    </div>
+  
     <div>
-      <h5>PRESUPUESTO</h5>
-      <h6 class="presupValue">$0</h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>gasto</th>
+            <th>valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="containerTbody">
+        </tbody>
+      </table>
     </div>
-    <div>
-      <h5>GASTOS</h5>
-      <h6 class="gastosValue">$0</h6>
-    </div>
-    <div>
-      <h5>SALDO</h5>
-      <h6 class="saldoValue">$0</h6>
-    </div>
-  </div>
+  </main>
 
-  <div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>gasto</th>
-          <th>valor</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody class="containerTbody">
-      </tbody>
-    </table>
-  </div>
+  <aside>
+    <img src="./assets/img/8675101.jpg" alt="Budget Logo">
+  </aside>
+  
 
   <script src="./assets/js/script.js"></script>
   <script src="https://kit.fontawesome.com/33fc1bc4f1.js" crossorigin="anonymous"></script>

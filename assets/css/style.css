@@ -1,7 +1,80 @@
-.containerInput, .containerValue {
+body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+main {
+  width: 60%;
+}
+
+aside {
+  width: 38%;
+}
+
+aside img {
+  width: 100%;
+  margin-top: 60px;
+}
+
+.containerInput,
+.containerValue {
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: top;
 }
 
+.containerPresupuesto,
+.containerGastos {
+  margin: 70px 20px 20px 20px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 5px 1px #dddddd;
+}
+
+input[type="text"],
+input[type="number"] {
+  border: 2px solid #dddddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  color: #b1b1b1;
+}
+
+::placeholder {
+  color: #b1b1b1;
+}
+
+input {
+  width: 18em;
+}
+
+button {
+  margin-top: 10px;
+  background-color: #b45aae;
+  border: none;
+  color: white;
+  padding: 10px 40px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #e297dc;
+}
+
+
+.containerValue {
+  text-align: center;
+  background-color: #b45aae;
+  width: 90%;
+  border-radius: 10px;
+  color: white;
+  padding: 16px 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}

@@ -55,13 +55,16 @@ btnPresupuesto.addEventListener("click", () => {
   if (isNaN(presupValue) || presupValue <= 0) {
     alert("Debe ingresar un número mayor a 0");
     document.querySelector(".presupValue").innerText = "$0";
+    document.querySelector("#agregarPresup").innerText = "Añadir";
   } else {
     // Si se ingresó un número, lo formateamos y lo mostramos en el elemento
     document.querySelector(".presupValue").innerText = `$${presupuestoTotal.toLocaleString("es-CL")}`;
     document.querySelector(".saldoValue").innerText = `$${saldoTotal.toLocaleString("es-CL")}`;
+    document.querySelector("#agregarPresup").innerText = "Cambiar";
   }
-  // Dejamos vacio el input
+  // Dejamos vacio el input y cambiamos texto botond
   document.querySelector("#presupInput").value = "";
+  
 })
 
 
@@ -78,7 +81,6 @@ btnGastos.addEventListener("click", () => {
   if (isNaN(gastosValor) || gastosValor <= 0 || gastosNombre === "") {
     // Si el valor de gasto no es un número o es menor o igual a 0 o no se ingresa un nombre, se muestra una alerta y se vacía el valor del input valor
     alert("Debe ingresar el nombre y valor mayor a 0");
-    document.querySelector("#valorInput").value = "";
   } else {
     // Si el valor de gasto es válido, se crea un objeto gastos con la función getGastosObj y se agrega al array de gastos
     let gastos = getGastosObj(gastosNombre, gastosValor);
@@ -93,8 +95,8 @@ btnGastos.addEventListener("click", () => {
     let totalSaldo = (presupuestoTotal - totalGastos);
 
     // Se actualiza el valor mostrado del saldo en el HTML
-
     document.querySelector(".saldoValue").innerText = `$${totalSaldo.toLocaleString("es-CL")}`;
+
     // Se vacían los valores de los inputs nombre y valor
     document.querySelector("#nombreInput").value = "";
     document.querySelector("#valorInput").value = "";
@@ -124,7 +126,7 @@ const deleteIcon = (id) => {
   // Se actualizan los números de las filas en la tabla
   const tbody = document.querySelector(".containerTbody");
   const filas = tbody.querySelectorAll("tr");
-  // Recorrer cada fila con un ciclo forEach y pasar el índice (index)
+  // Recorrer cada fila con un ciclo forEach y pasa el índice (index)
   filas.forEach((fila, index) => {
     // Obtener el primer elemento td de cada fila (el número de la fila)
     const numero = fila.querySelector("td:first-child");
